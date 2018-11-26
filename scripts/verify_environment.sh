@@ -32,21 +32,21 @@ if [ "$NPM_VERSION" ]
 then
     echo "NPM version:          $NPM_VERSION"
 else
-    echo "NPM is not installed"
+    echo "NPM version:          NOT INSTALLED"
 fi
 
 if [ "$GIT_VERSION" ]
 then
     echo "Git version:          $GIT_VERSION"
 else
-    echo "Git is not installed"
+    echo "Git version:          NOT INSTALLED"
 fi
 
 if [ "$NODE_VERSION" ]
 then
     echo "NodeJS version:       $NODE_VERSION"
 else
-    echo "NodeJS is not installed"
+    echo "NodeJS version:       NOT INSTALLED"
 fi
 
 # Printing when the script starts and when the script ends
