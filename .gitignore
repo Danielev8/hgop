@@ -63,5 +63,6 @@ typings/
 # ignore log file
 .log
 
-# terraform folder
+# terraform
 .terraform/
+*.tfstate
