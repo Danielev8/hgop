@@ -18,6 +18,7 @@ AWS_VERSION_CLI="$(aws --version | cut -d' ' -f1)"
 AWS_VERSION_PYTHON="$(aws --version | cut -d' ' -f2)"
 AWS_VERSION_LINUX="$(aws --version | cut -d' ' -f3)"
 AWS_VERSION_BOTO="$(aws --version | cut -d' ' -f4)"
+TERRAFORM_VERSION="$(terraform --version | cut -d' ' -f2)"
 #Function to print out our output
 print_output()
 {
@@ -51,6 +52,13 @@ then
     echo "NodeJS version:       $NODE_VERSION"
 else
     echo "NodeJS version:       NOT INSTALLED"
+fi
+
+if [ "$TERRAFORM_VERSION" ]
+then
+    echo "Terraform version:    $TERRAFORM_VERSION"
+else 
+    echo "Terraform version:    NOT INSTALLED"
 fi
 
 if [ "$AWS_VERSION_CHECK" ]
