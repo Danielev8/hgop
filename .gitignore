@@ -65,4 +65,4 @@ typings/
 
 # terraform
 .terraform/
-*.tfstate
+*.tfstate*
