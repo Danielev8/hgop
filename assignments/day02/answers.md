@@ -42,4 +42,4 @@ Also known as 'Node-postgres'. It is a package of modules that allows the NodeJS
 Docker-compose is built to work with Docker. Compose is a tool for defining and running multi-container Docker applications.
 
 ## Results
-Like mentioned in [the first section](#Docker-Excercise) we have learned the basics of how to use Docker (and Docker-compose) and apply them to simple applications. As well as sharing images to Docker Cloud so that others (partner) and run them on their machine.
+Like mentioned in [the first section](#docker-exercise) we have learned the basics of how to use Docker (and Docker-compose) and apply them to simple applications. As well as sharing images to Docker Cloud so that others (partner) and run them on their machine.
