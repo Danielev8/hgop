@@ -1,10 +1,14 @@
-# TODO Comment 2-3 sentences.
+# This tells Terraform we want to create a new infrastructure, 
+# using AWS as the provider and using our credentials found under account details that we copied from AWS (workbench page),
+# And the server region we want to use
 provider "aws" {
   shared_credentials_file = "~/.aws/credentials"
   region                  = "us-east-1"
 }
 
-# TODO Comment 2-3 sentences.
+# Here we are creating the security group called "GameSecurityGroup"
+# and setting its inbound and outbout rules.
+# Inbound will allow TCP port 22 and 3000, outbound seems to be the default.
 resource "aws_security_group" "game_security_group" {
   name   = "GameSecurityGroup"
 
@@ -30,7 +34,9 @@ resource "aws_security_group" "game_security_group" {
   }
 }
 
-# TODO Comment 2-3 sentences.
+# Here we are creating a new instance called "GameServer", using the KeyPair we created on AWS (EC2 Management console)
+# AMI (Amazon Machine Image) is what operating system we want the AWS computer to use, 
+# in this case Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (according to ami key)
 resource "aws_instance" "game_server" {
   ami                    = "ami-0ac019f4fcb7cb7e6"
   instance_type          = "t2.micro"
@@ -39,7 +45,9 @@ resource "aws_instance" "game_server" {
   tags {
     Name = "GameServer"
   }
-  # TODO Comment 1-2 sentences.
+  # A game initialization script is provided from our local computer and is copied over to the Instance server's destination
+  # Then telling what connection type we want to use and what KeyPair we are using, in this case 'GameKeyPair.pem'
+  # User 'ubuntu' is just the default user on the AWS system.
   provisioner "file" {
     source      = "scripts/initialize_game_api_instance.sh"
     destination = "/home/ubuntu/initialize_game_api_instance.sh"
@@ -50,7 +58,8 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
-  # TODO Comment 1-2 sentences.
+  # Similarly to the one above, we are providing the local docker-compose.yml file and copying over to the AWS server. 
+  # using the same GameKeyPair as above.
   provisioner "file" {
     source      = "docker-compose.yml"
     destination = "/home/ubuntu/docker-compose.yml"
@@ -66,7 +75,9 @@ resource "aws_instance" "game_server" {
   # Since it can take time for the SSH agent on machine to start up we let Terraform
   # handle the retry logic, it will try to connect to the agent until it is available
   # that way we know the instance is available through SSH after Terraform finishes.
-  # TODO Comment 1-2 sentences.
+  
+  # This tells the remote computer that it should run this command to give the computer access to run the initialize game script. 
+  # (same to how we have to do this locally)
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/initialize_game_api_instance.sh",
@@ -80,7 +91,7 @@ resource "aws_instance" "game_server" {
   }
 }
 
-# TODO Comment 1-2 sentences.
+# This is to give the value to the command we call "terraform output public_ip", which is the game_server public ip address
 output "public_ip" {
   value = "${aws_instance.game_server.public_ip}"
 }
