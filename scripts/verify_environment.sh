@@ -20,6 +20,10 @@ AWS_VERSION_LINUX="$(aws --version | cut -d' ' -f3)"
 AWS_VERSION_BOTO="$(aws --version | cut -d' ' -f4)"
 TERRAFORM_VERSION="$(terraform --version | cut -d' ' -f2 | head -1)"
 TERRAFORM_PROVIDERS="$(terraform --version | sed '/Terraform/d')"
+DOCKER_VERSION="$(docker --version | cut -d' ' -f1-2 --complement)"
+DOCKER_COMPOSE_VERSION="$(docker-compose --version | cut -d' ' -f1-2 --complement)"
+
+
 #Function to print out our output
 print_output()
 {
@@ -31,52 +35,66 @@ echo "This script is designed to check and display all versions of all the tools
 that are installed on this machine and what operating system you are running"
 echo
 # Operating system information
-echo "Operating system:     $OS"
+echo "Operating system:         $OS"
 
 # If statements are used to check if the tools exists, if they do then print out their version, else displays error message
 if [ "$NPM_VERSION" ]
 then
-    echo "NPM version:          $NPM_VERSION"
+    echo "NPM version:              $NPM_VERSION"
 else
-    echo "NPM version:          NOT INSTALLED"
+    echo "NPM version:              NOT INSTALLED"
 fi
 
 if [ "$GIT_VERSION" ]
 then
-    echo "Git version:          $GIT_VERSION"
+    echo "Git version:              $GIT_VERSION"
 else
-    echo "Git version:          NOT INSTALLED"
+    echo "Git version:              NOT INSTALLED"
 fi
 
 if [ "$NODE_VERSION" ]
 then
-    echo "NodeJS version:       $NODE_VERSION"
+    echo "NodeJS version:           $NODE_VERSION"
 else
-    echo "NodeJS version:       NOT INSTALLED"
+    echo "NodeJS version:           NOT INSTALLED"
+fi
+
+if [ "$DOCKER_VERSION" ]
+then 
+    echo "Docker version:           $DOCKER_VERSION"
+else
+    echo "Docker version:           NOT INSTALLED"
+fi
+
+if [ "$DOCKER_COMPOSE_VERSION" ]
+then
+    echo "Docker-compose version:   $DOCKER_COMPOSE_VERSION"
+else
+    echo "Docker-compose version:   NOT INSTALLED"
 fi
 
 if [ "$AWS_VERSION_CHECK" ]
 then
-    echo "AWS version:          $AWS_VERSION_CLI
-                      $AWS_VERSION_PYTHON
-                      $AWS_VERSION_LINUX
-                      $AWS_VERSION_BOTO"
+    echo "AWS version:              $AWS_VERSION_CLI
+                          $AWS_VERSION_PYTHON
+                          $AWS_VERSION_LINUX
+                          $AWS_VERSION_BOTO"
 else
-    echo "AWS version:          NOT INSTALLED"
+    echo "AWS version:              NOT INSTALLED"
 fi
 
 if [ "$TERRAFORM_VERSION" ]
 then
-    echo "Terraform version:    $TERRAFORM_VERSION"
-    echo "Terraform providers:  $TERRAFORM_PROVIDERS"
+    echo "Terraform version:        $TERRAFORM_VERSION"
+    echo "Terraform providers:      $TERRAFORM_PROVIDERS"
 else 
-    echo "Terraform version:    NOT INSTALLED"
+    echo "Terraform version:        NOT INSTALLED"
 fi
 
 # Printing when the script starts and when the script ends
 echo 
-echo "Script started at:    $start
-Ended at:             $(date)" 
+echo "Script started at:        $start
+Ended at:                 $(date)" 
 } 
 
 # Printing into terminal and into the output file
