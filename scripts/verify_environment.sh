@@ -23,11 +23,6 @@ TERRAFORM_PROVIDERS="$(terraform --version | sed '/Terraform/d')"
 DOCKER_VERSION="$(docker --version | cut -d' ' -f1-2 --complement)"
 DOCKER_COMPOSE_VERSION="$(docker-compose --version | cut -d' ' -f1-2 --complement)"
 
-# Colors for font
-RED="\e[91m"
-GREEN="\e[92m"
-WHITE="\033[1m\033[0m"
-
 
 #Function to print out our output
 print_output()
@@ -45,55 +40,55 @@ echo "Operating system:         $OS"
 # If statements are used to check if the tools exists, if they do then print out their version, else displays error message
 if [ "$NPM_VERSION" ]
 then
-    echo -e "NPM version:             $GREEN $NPM_VERSION $WHITE"
+    echo "NPM version:              $NPM_VERSION"
 else
-    echo -e "NPM version:             $RED NOT INSTALLED $WHITE"
+    echo "NPM version:              NOT INSTALLED"
 fi
 
 if [ "$GIT_VERSION" ]
 then
-    echo -e "Git version:             $GREEN $GIT_VERSION $WHITE"
+    echo "Git version:              $GIT_VERSION"
 else
-    echo -e "Git version:             $RED NOT INSTALLED $WHITE"
+    echo "Git version:              NOT INSTALLED"
 fi
 
 if [ "$NODE_VERSION" ]
 then
-    echo -e "NodeJS version:          $GREEN $NODE_VERSION $WHITE"
+    echo "NodeJS version:           $NODE_VERSION"
 else
-    echo -e "NodeJS version:          $RED NOT INSTALLED $WHITE"
+    echo "NodeJS version:           NOT INSTALLED"
 fi
 
 if [ "$DOCKER_VERSION" ]
 then 
-    echo -e "Docker version:          $GREEN $DOCKER_VERSION $WHITE"
+    echo "Docker version:           $DOCKER_VERSION"
 else
-    echo -e "Docker version:          $RED NOT INSTALLED $WHITE"
+    echo "Docker version:           NOT INSTALLED"
 fi
 
 if [ "$DOCKER_COMPOSE_VERSION" ]
 then
-    echo -e "Docker-compose version:  $GREEN $DOCKER_COMPOSE_VERSION $WHITE"
+    echo "Docker-compose version:   $DOCKER_COMPOSE_VERSION"
 else
-    echo -e "Docker-compose version:  $RED NOT INSTALLED $WHITE"
+    echo "Docker-compose version:   NOT INSTALLED"
 fi
 
 if [ "$AWS_VERSION_CHECK" ]
 then
-    echo -e "AWS version:             $GREEN $AWS_VERSION_CLI
+    echo "AWS version:              $AWS_VERSION_CLI
                           $AWS_VERSION_PYTHON
                           $AWS_VERSION_LINUX
-                          $AWS_VERSION_BOTO $WHITE"
+                          $AWS_VERSION_BOTO"
 else
-    echo -e "AWS version:             $RED NOT INSTALLED $WHITE"
+    echo "AWS version:              NOT INSTALLED"
 fi
 
 if [ "$TERRAFORM_VERSION" ]
 then
-    echo -e "Terraform version:       $GREEN $TERRAFORM_VERSION $WHITE"
-    echo -e "Terraform providers:     $GREEN $TERRAFORM_PROVIDERS $WHITE"
+    echo "Terraform version:        $TERRAFORM_VERSION"
+    echo "Terraform providers:      $TERRAFORM_PROVIDERS"
 else 
-    echo -e "Terraform version:       $RED NOT INSTALLED $WHTE"
+    echo "Terraform version:        NOT INSTALLED"
 fi
 
 # Printing when the script starts and when the script ends
