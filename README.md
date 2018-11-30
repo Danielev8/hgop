@@ -10,4 +10,4 @@ URL to instance running api:
 - Daniel's - [http://ec2-34-227-161-151.compute-1.amazonaws.com:3000/](http://ec2-34-227-161-151.compute-1.amazonaws.com:3000/) 
 - Einar's - [http://ec2-54-175-164-222.compute-1.amazonaws.com:3000/](http://ec2-54-175-164-222.compute-1.amazonaws.com:3000/)
 
-No additional information about the project.
+We are both running Ubuntu 18.04 LTS, we have not gotten the chance to test everything on Mac OSX. Everything has worked flawlessly on our machines so far, but the only concerns are minor things like verify_environments.sh, some commands may be different on Macs.
