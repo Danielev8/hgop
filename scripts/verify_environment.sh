@@ -47,8 +47,6 @@ else
     echo "OS is not supported!"
 fi
 
-
-
 # If statements are used to check if the tools exists, if they do then print out their version, else displays error message
 if [ "$NPM_VERSION" ]
 then
