@@ -2,7 +2,7 @@
 
 ## What is Linux?
 
-Linux is an open-source operating system that is built/modeled on UNIX.
+Linux is an open-source operating system that is built/modeled on UNIX. It was first release on September 27, 1991.
 
 ## Why use Linux?
 
