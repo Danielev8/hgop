@@ -9,7 +9,7 @@ start="$(date)"
 OS="$(uname -srm)"
 # alternative to get ubuntu version
 #OS="$(lsb_release -d | awk -F'Description:\t' '{print $2}')"
-# getting the version of the tools listed
+# getting the version of the tools listed, grep and cuts are used to get just the version numbers, not texts.
 GIT_VERSION="$(git --version | grep -Po "(\d+\.)+\d+")"
 NPM_VERSION="$(npm --version)"
 NODE_VERSION="$(node -v)"
