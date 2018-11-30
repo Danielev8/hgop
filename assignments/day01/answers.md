@@ -6,7 +6,7 @@ Linux is an open-source operating system that is built/modeled on UNIX.
 
 ## Why use Linux?
 
-There are plenty of reasons to use and not use Linux, depending on who you are and what you are planning to do. A lot of developers tend to prefer a UNIX system, being Linux or Mac OS X as they prefer to use the unix terminals built in the syster rather than window's alternative, DOS. To have a better understanding of why one would use Linux over anything else, you have to check out the pros and cons.
+There are plenty of reasons to use and not use Linux, depending on who you are and what you are planning to do. A lot of developers tend to prefer a UNIX system, being Linux or Mac OS X as they prefer to use the unix terminals built in the system rather than window's alternative, DOS. To have a better understanding of why one would use Linux over anything else, you have to check out the pros and cons.
 
 ### Pros and Cons
 
