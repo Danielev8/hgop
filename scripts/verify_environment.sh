@@ -2,14 +2,16 @@
 # setting variables
 # Getting the name of the current user
 NAME="$USER" 
-log_file=output.log
+# Name of the log file to output
+log_file=verify_environment.log
 # Getting the time when the script starts
 start="$(date)"
 # Getting the System information
 OS="$(uname -srm)"
+OS_CHECK=$(uname -srm | cut -d' ' -f1)
 # alternative to get ubuntu version
 #OS="$(lsb_release -d | awk -F'Description:\t' '{print $2}')"
-# getting the version of the tools listed, grep and cuts are used to get just the version numbers, not texts.
+# getting the version of the tools listed, grep and cuts are used to get just the version numbers, not texts.gi
 GIT_VERSION="$(git --version | grep -Po "(\d+\.)+\d+")"
 NPM_VERSION="$(npm --version)"
 NODE_VERSION="$(node -v)"
@@ -28,14 +30,24 @@ DOCKER_COMPOSE_VERSION="$(docker-compose --version | cut -d' ' -f1-2 --complemen
 print_output()
 {
 # Welcoming message
+echo
 echo "Welcome $NAME"
 echo
 # What this script does
 echo "This script is designed to check and display all versions of all the tools
 that are installed on this machine and what operating system you are running"
 echo
+
 # Operating system information
-echo "Operating system:         $OS"
+if [[ $OS_CHECK == "Darwin" ]]; then
+    echo "Operating System:         $OS"
+elif [[ $OS_CHECK == "Linux" ]]; then
+    echo "Operating System:         $OS"
+else
+    echo "OS is not supported!"
+fi
+
+
 
 # If statements are used to check if the tools exists, if they do then print out their version, else displays error message
 if [ "$NPM_VERSION" ]
