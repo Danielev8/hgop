@@ -44,7 +44,9 @@ if [[ $OS_CHECK == "Darwin" ]]; then
 elif [[ $OS_CHECK == "Linux" ]]; then
     echo "Operating System:         $OS"
 else
-    echo "OS is not supported!"
+    echo "OS is not supported! Exiting script"
+    echo
+    exit 0
 fi
 
 # If statements are used to check if the tools exists, if they do then print out their version, else displays error message
