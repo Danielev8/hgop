@@ -49,7 +49,7 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            game.state.card = dealer.draw(game.state.deck);
         },
     };
 };
