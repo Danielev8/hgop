@@ -8,6 +8,7 @@ node {
         sh "echo 'I solemnly swear that I know not to run this without committing changes I want to keep!'"
         sh "git clean -dfxq"
         sh "git stash"
+        sh "cd game-api"
         sh "npm install"
         sh "npm run eslint"
     }
