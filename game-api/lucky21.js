@@ -26,11 +26,8 @@ module.exports = (deck, dealer) => {
         getCardsValue: (game) => {
             let arrOfAces = [];
             let arrOfRest = [];
-            parseCard = (card) => {
-                return parseInt(card.substr(0,2));
-            }
 
-            for (let i = 0 ; i < game.state.cards.length ; i++) {
+            for (let i = 0; i < game.state.cards.length; i++) {
                 let value = parseCard(game.state.cards[i]);
                 if (value === 1) {
                     arrOfAces.push(1);
@@ -41,10 +38,16 @@ module.exports = (deck, dealer) => {
                 }
             }
 
-            let maxValueOfAces = 11 + arrOfAces.length - 1;
+            let maxValueOfAces = 0;
+            if (arrOfAces.length > 0 && arrOfAces.length === 1) {
+                maxValueOfAces = 11;
+            } else if (arrOfAces.length > 1) {
+                maxValueOfAces = 11 + arrOfAces.length - 1;
+            }
+
             let sumOfRest = arrOfRest.reduce((sum, curr) => {
                 return sum + curr;
-            })
+            }, 0);
 
             if (sumOfRest + maxValueOfAces > 21) {
                 return sumOfRest + arrOfAces.length;
@@ -55,7 +58,20 @@ module.exports = (deck, dealer) => {
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            // TODO
+            let value = parseCard(game.state.card);
+            if (value) {
+                if (value === 1) {
+                    if (game.getCardsValue(game) > 10) {
+                        console.log(game.getCardsValue(game));
+                        return 1;
+                    }
+                    return 11;
+                } else if (value > 10) {
+                    return 10;
+                }
+            }
+            return value;
+
         },
 
         // The cards value + the card value if it exits (integer).
@@ -80,3 +96,10 @@ module.exports = (deck, dealer) => {
         },
     };
 };
+
+parseCard = (card) => {
+    if (card) {
+        return parseInt(card.substr(0, 2))
+    }
+    return card;
+}
