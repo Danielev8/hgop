@@ -30,6 +30,8 @@ module.exports = (deck, dealer) => {
         getCardValue: (game) => {
             // TODO
         },
+        
+        // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
             // TODO
         },
@@ -43,7 +45,7 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guess21OrUnder: (game) => {
-            // TODO
+            game.state.cards = [...game.state.cards, dealer.draw(game.state.deck)];
         },
         // Player action (void).
         guessOver21: (game) => {
