@@ -9,5 +9,6 @@ node {
         sh "git clean -dfxq"
         sh "git stash"
         sh "npm install"
+        sh "npm run eslint"
     }
 }
