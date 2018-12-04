@@ -16,20 +16,20 @@ module.exports = (deck, dealer) => {
         state: state,
         // Is the game over (true or false).
         isGameOver: (game) => {
-            if(game.state.card){
+            if (game.state.card) {
                 return true;
             }
-            if (game.getCardsValue(game) >= 21){
+            if (game.getCardsValue(game) >= 21) {
                 return true;
             }
             return false;
         },
         // Has the player won (true or false).
         playerWon: (game) => {
-            if(game.state.card && game.getTotal(game) > 21){
+            if (game.state.card && game.getTotal(game) > 21) {
                 return true;
             }
-            if(game.getCardsValue(game) === 21){
+            if (game.getCardsValue(game) === 21) {
                 return true;
             }
             return false;
@@ -66,7 +66,6 @@ module.exports = (deck, dealer) => {
             } else {
                 return sumOfRest + maxValueOfAces;
             }
-
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
@@ -88,8 +87,8 @@ module.exports = (deck, dealer) => {
 
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            if(game.state.card){
-                return game.getCardsValue(game) + game.getCardValue(game); 
+            if (game.state.card) {
+                return game.getCardsValue(game) + game.getCardValue(game);
             }
             return game.getCardsValue(game);
         },
