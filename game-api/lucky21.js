@@ -24,13 +24,40 @@ module.exports = (deck, dealer) => {
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            // TODO
+            let arrOfAces = [];
+            let arrOfRest = [];
+            parseCard = (card) => {
+                return parseInt(card.substr(0,2));
+            }
+
+            for (let i = 0 ; i < game.state.cards.length ; i++) {
+                let value = parseCard(game.state.cards[i]);
+                if (value === 1) {
+                    arrOfAces.push(1);
+                } else if (value > 10) {
+                    arrOfRest.push(10);
+                } else {
+                    arrOfRest.push(value);
+                }
+            }
+
+            let maxValueOfAces = 11 + arrOfAces.length - 1;
+            let sumOfRest = arrOfRest.reduce((sum, curr) => {
+                return sum + curr;
+            })
+
+            if (sumOfRest + maxValueOfAces > 21) {
+                return sumOfRest + arrOfAces.length;
+            } else {
+                return sumOfRest + maxValueOfAces;
+            }
+
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
             // TODO
         },
-        
+
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
             // TODO
