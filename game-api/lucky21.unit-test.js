@@ -308,7 +308,7 @@ test('getCardValue should return 1', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
-    '03S', '04C', '04D', '01H'
+    '01H', '03S', '04C', '04D'
   ];
   let dealer = dealerConstructor();
   // Override the shuffle to do nothing.
@@ -330,7 +330,7 @@ test('getCardValue should return 11', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
-    '03S', '04C', '03D', '01H'
+    '01H', '03S', '04C', '03D'
   ];
   let dealer = dealerConstructor();
   // Override the shuffle to do nothing.
@@ -518,7 +518,7 @@ test('getTotal should return 27', () => {
 
 ////////////////////////////////////////////////////////////////////////////////////
 // getCards
-test('getCards should return ["05H", "07D", "13S"]', () => {
+test('getCards should return ["13S", "07D", "05H"]', () => {
   // create a deck with these cards and some more, and draw them 1 time
   // Arrange
   let deck = deckConstructor();
@@ -533,10 +533,10 @@ test('getCards should return ["05H", "07D", "13S"]', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards(game)).toEqual(["05H", "07D", "13S"]);
+  expect(game.getCards(game)).toEqual(["13S", "07D", "05H"]);
 });
 
-test('getCards should return ["01S", "04D"]', () => {
+test('getCards should return ["04D", "01S"]', () => {
   // create a deck with these cards and should get these values right away
   // Arrange
   let deck = deckConstructor();
@@ -550,10 +550,10 @@ test('getCards should return ["01S", "04D"]', () => {
   let game = lucky21Constructor(deck, dealer);
 
   // Assert
-  expect(game.getCards(game)).toEqual(["01S", "04D"])
+  expect(game.getCards(game)).toEqual(["04D", "01S"])
 });
 
-test('getCards should return ["01C", "08D", "06S", "13S"]', () => {
+test('getCards should return ["13S", "06S", "08D", "01C"]', () => {
   // create a deck with these cards and draw 2 times
   // Arrange
   let deck = deckConstructor();
@@ -569,10 +569,10 @@ test('getCards should return ["01C", "08D", "06S", "13S"]', () => {
   game.guess21OrUnder(game);
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards(game)).toEqual(["01C", "08D", "06S", "13S"])
+  expect(game.getCards(game)).toEqual(["13S", "06S", "08D", "01C"])
 });
 
-test('getCards should return ["08S", "05C", "10D", "01H", "07S"]', () => {
+test('getCards should return ["07S", "01H", "10D", "05C", "08S"]', () => {
   // create a deck with these cards and draw 3 times
   // Arrange
   let deck = deckConstructor();
@@ -589,11 +589,11 @@ test('getCards should return ["08S", "05C", "10D", "01H", "07S"]', () => {
   game.guess21OrUnder(game);
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards(game)).toEqual(["08S", "05C", "10D", "01H", "07S"])
+  expect(game.getCards(game)).toEqual(["07S", "01H", "10D", "05C", "08S"])
 });
 /////////////////////////////////////////////////////////////////////////////////////
 // getCard
-test('getCard should return "10H"', () => {
+test('getCard should return "08S"', () => {
   // start the game and guessOver right away (10H being the next card)
   // Arrange
   let deck = deckConstructor();
@@ -608,7 +608,7 @@ test('getCard should return "10H"', () => {
   // Act
   game.guessOver21(game);
   // Assert 
-  expect(game.getCard(game)).toEqual("10H");
+  expect(game.getCard(game)).toEqual("08S");
 });
 
 test('getCard should return undefined', () => {
@@ -649,7 +649,7 @@ test('guess21OrUnder should draw the next card', () => {
 
   // Assert
   expect(game.state.cards.length).toEqual(3);
-  expect(game.state.cards[2]).toEqual('09S');
+  expect(game.state.cards[2]).toEqual('01D');
 });
 
 // guessOver21
@@ -671,5 +671,5 @@ test('guessOver21 should draw next card and set player card as that card', () =>
 
   // Assert
   expect(game.state.cards.length).toEqual(2);
-  expect(game.state.card).toEqual('09S');
+  expect(game.state.card).toEqual('01D');
 });
