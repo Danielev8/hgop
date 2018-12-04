@@ -455,7 +455,7 @@ test('getCardValue should return 7', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
-    '03S', '04C', '04D', '07H'
+    '07H', '03S', '04C', '04D'
   ];
   let dealer = dealerConstructor();
   // Override the shuffle to do nothing.
@@ -463,7 +463,6 @@ test('getCardValue should return 7', () => {
   // Inject our dependencies
   let game = lucky21Constructor(deck, dealer);
   // Act
-  game.guess21OrUnder(game);
   game.guess21OrUnder(game);
   game.guessOver21(game);
   // Assert
