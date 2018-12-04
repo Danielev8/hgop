@@ -29,7 +29,7 @@ module.exports = (deck, dealer) => {
             if (game.state.card && game.getTotal(game) > 21) {
                 return true;
             }
-            if (game.getCardsValue(game) === 21) {
+            if (game.getCardsValue(game)===21) {
                 return true;
             }
             return false;
