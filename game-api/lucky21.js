@@ -114,7 +114,7 @@ module.exports = (deck, dealer) => {
 
 parseCard = (card) => {
     if (card) {
-        return parseInt(card.substr(0, 2))
+        return parseInt(card)
     }
     return card;
 }
