@@ -76,7 +76,10 @@ module.exports = (deck, dealer) => {
 
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            // TODO
+            if(game.state.card){
+                return game.getCardsValue(game) + game.getCardValue(game); 
+            }
+            return game.getCardsValue(game);
         },
         // The player's cards (array of strings).
         getCards: (game) => {
