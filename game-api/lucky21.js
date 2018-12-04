@@ -41,7 +41,7 @@ module.exports = (deck, dealer) => {
         },
         // The player's card (string or undefined).
         getCard: (game) => {
-            // TODO
+            return game.state.card;
         },
         // Player action (void).
         guess21OrUnder: (game) => {
