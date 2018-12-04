@@ -36,7 +36,7 @@ test('isGameOver should return true', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.isGameOver()).toEqual(true);
+  expect(game.isGameOver(game)).toEqual(true);
 });
 
 test('isGameOver should return true', () => {
@@ -57,7 +57,7 @@ test('isGameOver should return true', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.isGameOver()).toEqual(true);
+  expect(game.isGameOver(game)).toEqual(true);
 });
 
 test('isGameOver should return true', () => {
@@ -78,7 +78,7 @@ test('isGameOver should return true', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.isGameOver()).toEqual(true);
+  expect(game.isGameOver(game)).toEqual(true);
 });
 
 test('isGameOver should return false', () => {
@@ -99,7 +99,7 @@ test('isGameOver should return false', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.isGameOver()).toBe(false);
+  expect(game.isGameOver(game)).toBe(false);
 });
 
 ////////////////////////////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ test('playerWon should return true', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.playerWon()).toEqual(true);
+  expect(game.playerWon(game)).toEqual(true);
 });
 
 test('playerWon should return true', () => {
@@ -145,7 +145,7 @@ test('playerWon should return true', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.playerWon()).toEqual(true);
+  expect(game.playerWon(game)).toEqual(true);
 });
 
 test('playerWon should return true', () => {
@@ -167,7 +167,7 @@ test('playerWon should return true', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.playerWon()).toEqual(true);
+  expect(game.playerWon(game)).toEqual(true);
 });
 
 test('playerWon should return false', () => {
@@ -189,7 +189,7 @@ test('playerWon should return false', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.playerWon()).toEqual(false);
+  expect(game.playerWon(game)).toEqual(false);
 });
 
 test('playerWon should return false', () => {
@@ -211,7 +211,7 @@ test('playerWon should return false', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.playerWon()).toEqual(false);
+  expect(game.playerWon(game)).toEqual(false);
 });
 
 ////////////////////////////////////////////////////////////////////////////
@@ -235,7 +235,7 @@ test('getCardsValue should return 25', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.getCardsValue()).toEqual(25);
+  expect(game.getCardsValue(game)).toEqual(25);
 });
 
 test('getCardsValue should return 15', () => {
@@ -253,7 +253,7 @@ test('getCardsValue should return 15', () => {
   let game = lucky21Constructor(deck, dealer);
 
   // Assert
-  expect(game.getCardsValue()).toEqual(15);
+  expect(game.getCardsValue(game)).toEqual(15);
 });
 
 test('getCardsValue should return 28', () => {
@@ -275,7 +275,7 @@ test('getCardsValue should return 28', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.getCardsValue()).toEqual(28);
+  expect(game.getCardsValue(game)).toEqual(28);
 });
 
 test('getCardsValue should return 23', () => {
@@ -298,7 +298,7 @@ test('getCardsValue should return 23', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.getCardsValue()).toEqual(23);
+  expect(game.getCardsValue(game)).toEqual(23);
 });
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -322,7 +322,7 @@ test('getCardValue should return 1', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.getCardValue()).toEqual(1);
+  expect(game.getCardValue(game)).toEqual(1);
 });
 
 test('getCardValue should return 11', () => {
@@ -344,7 +344,7 @@ test('getCardValue should return 11', () => {
   game.guessOver21(game);
 
   // Assert
-  expect(game.getCardValue()).toEqual(11);
+  expect(game.getCardValue(game)).toEqual(11);
 });
 
 test('getCardValue should return undefined', () => {
@@ -365,7 +365,7 @@ test('getCardValue should return undefined', () => {
   game.guess21OrUnder(game);
 
   // Assert
-  expect(game.getCardValue()).toEqual(undefined);
+  expect(game.getCardValue(game)).toEqual(undefined);
 });
 
 test('getCardValue should return undefined', () => {
@@ -382,7 +382,7 @@ test('getCardValue should return undefined', () => {
   let game = lucky21Constructor(deck, dealer);
 
   // Assert
-  expect(game.getCardValue()).toEqual(undefined);
+  expect(game.getCardValue(game)).toEqual(undefined);
 });
 
 test('getCardValue should return 7', () => {
@@ -402,7 +402,7 @@ test('getCardValue should return 7', () => {
   game.guess21OrUnder(game);
   game.guessOver21(game);
   // Assert
-  expect(game.getCardValue()).toEqual(7);
+  expect(game.getCardValue(game)).toEqual(7);
 });
 ////////////////////////////////////////////////////////////////////////////////////
 // getTotal
@@ -421,7 +421,7 @@ test('getTotal should return 16', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getTotal()).toEqual(16);
+  expect(game.getTotal(game)).toEqual(16);
 });
 
 test('getTotal should return 21', () => {
@@ -439,7 +439,7 @@ test('getTotal should return 21', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getTotal()).toEqual(21);
+  expect(game.getTotal(game)).toEqual(21);
 });
 
 test('getTotal should return 25', () => {
@@ -457,7 +457,7 @@ test('getTotal should return 25', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getTotal()).toEqual(25);
+  expect(game.getTotal(game)).toEqual(25);
 
 });
 
@@ -476,7 +476,7 @@ test('getTotal should return 16', () => {
   // Act
   game.guessOver21(game);
   // Assert
-  expect(game.getTotal()).toEqual(16);
+  expect(game.getTotal(game)).toEqual(16);
 });
 
 test('getTotal should return 21', () => {
@@ -494,7 +494,7 @@ test('getTotal should return 21', () => {
   // Act
   game.guessOver21(game);
   // Assert
-  expect(game.getTotal()).toEqual(21);
+  expect(game.getTotal(game)).toEqual(21);
 });
 
 test('getTotal should return 27', () => {
@@ -513,7 +513,7 @@ test('getTotal should return 27', () => {
   game.guess21OrUnder(game);
   game.guessOver21(game);
   // Assert
-  expect(game.getTotal()).toEqual(27);
+  expect(game.getTotal(game)).toEqual(27);
 });
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -533,7 +533,7 @@ test('getCards should return ["05H", "07D", "13S"]', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards()).toEqual(["05H", "07D", "13S"]);
+  expect(game.getCards(game)).toEqual(["05H", "07D", "13S"]);
 });
 
 test('getCards should return ["01S", "04D"]', () => {
@@ -550,7 +550,7 @@ test('getCards should return ["01S", "04D"]', () => {
   let game = lucky21Constructor(deck, dealer);
 
   // Assert
-  expect(game.getCards()).toEqual(["01S", "04D"])
+  expect(game.getCards(game)).toEqual(["01S", "04D"])
 });
 
 test('getCards should return ["01C", "08D", "06S", "13S"]', () => {
@@ -569,7 +569,7 @@ test('getCards should return ["01C", "08D", "06S", "13S"]', () => {
   game.guess21OrUnder(game);
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards()).toEqual(["01C", "08D", "06S", "13S"])
+  expect(game.getCards(game)).toEqual(["01C", "08D", "06S", "13S"])
 });
 
 test('getCards should return ["08S", "05C", "10D", "01H", "07S"]', () => {
@@ -589,7 +589,7 @@ test('getCards should return ["08S", "05C", "10D", "01H", "07S"]', () => {
   game.guess21OrUnder(game);
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCards()).toEqual(["08S", "05C", "10D", "01H", "07S"])
+  expect(game.getCards(game)).toEqual(["08S", "05C", "10D", "01H", "07S"])
 });
 /////////////////////////////////////////////////////////////////////////////////////
 // getCard
@@ -608,7 +608,7 @@ test('getCard should return "10H"', () => {
   // Act
   game.guessOver21(game);
   // Assert 
-  expect(game.getCard()).toEqual("10H");
+  expect(game.getCard(game)).toEqual("10H");
 });
 
 test('getCard should return undefined', () => {
@@ -626,7 +626,7 @@ test('getCard should return undefined', () => {
   // Act
   game.guess21OrUnder(game);
   // Assert
-  expect(game.getCard()).toEqual(undefined);
+  expect(game.getCard(game)).toEqual(undefined);
 });
 
 //////////////////////////////////////////////////////////////////////////////////////
