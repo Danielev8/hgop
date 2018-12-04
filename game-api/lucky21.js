@@ -26,7 +26,13 @@ module.exports = (deck, dealer) => {
         },
         // Has the player won (true or false).
         playerWon: (game) => {
-            // TODO
+            if(game.state.card && game.getTotal(game) > 21){
+                return true;
+            }
+            if(game.getCardsValue(game) === 21){
+                return true;
+            }
+            return false;
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
