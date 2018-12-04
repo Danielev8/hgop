@@ -8,5 +8,6 @@ node {
         echo 'I solemnly swear that I know not to run this without committing changes I want to keep!'
         git clean -dfxq
         git stash
+        npm install --production
     }
 }
