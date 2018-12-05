@@ -14,4 +14,5 @@ node {
     stage("Test") {
         sh "npm run test:unit --prefix game-api"
     }
+    build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 }
