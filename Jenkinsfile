@@ -11,7 +11,7 @@ node {
         sh "npm install --prefix game-api"
         sh "npm run eslint --prefix game-api"
     }
-    stage("Unit Test") {
+    stage("Test") {
         sh "npm run test:unit --prefix game-api"
     }
 }
