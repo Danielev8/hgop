@@ -1,4 +1,5 @@
-const { Client } = require('pg');
+const context = require('./context.js').newContext();
+const Client = context('client');
 
 // export available database functions.
 module.exports = {
