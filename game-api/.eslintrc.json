@@ -5,5 +5,8 @@
     },
     "env": {
         "es6": true
+    },
+    "rules": {
+        "prefer-const": 0
     }
 }
