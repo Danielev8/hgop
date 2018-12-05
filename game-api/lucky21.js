@@ -1,10 +1,10 @@
 module.exports = (context) => {
 	let deckConstructor = context('deck');
 	let deck = deckConstructor(context);
-	
+
 	let dealerConstructor = context('dealer');
 	let dealer = dealerConstructor(context);
-	
+
 	dealer.shuffle(deck);
 	let card0 = dealer.draw(deck);
 	let card1 = dealer.draw(deck);
@@ -79,7 +79,6 @@ module.exports = (context) => {
 			if (value) {
 				if (value === 1) {
 					if (game.getCardsValue(game) > 10) {
-						console.log(game.getCardsValue(game));
 						return 1;
 					}
 					return 11;
