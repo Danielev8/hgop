@@ -76,7 +76,7 @@ resource "aws_instance" "game_server" {
 
   # Copy docker_compose_up to gameserver
     provisioner "file" {
-    source      = "docker_compose_up.sh"
+    source      = "scripts/docker_compose_up.sh"
     destination = "/home/ubuntu/docker_compose_up.sh"
 
     connection {
