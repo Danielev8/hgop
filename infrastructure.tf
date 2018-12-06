@@ -10,7 +10,7 @@ provider "aws" {
 # and setting its inbound and outbout rules.
 # Inbound will allow TCP port 22 and 3000, outbound seems to be the default.
 resource "aws_security_group" "game_security_group" {
-  name   = "GameSecurityGroup"
+  name = "GameSecurityGroup"
 
   ingress {
     from_port   = 22
@@ -42,9 +42,11 @@ resource "aws_instance" "game_server" {
   instance_type          = "t2.micro"
   key_name               = "GameKeyPair"
   vpc_security_group_ids = ["${aws_security_group.game_security_group.id}"]
+
   tags {
     Name = "GameServer"
   }
+
   # A game initialization script is provided from our local computer and is copied over to the Instance server's destination
   # Then telling what connection type we want to use and what KeyPair we are using, in this case 'GameKeyPair.pem'
   # User 'ubuntu' is just the default user on the AWS system.
@@ -58,6 +60,7 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
+
   # Similarly to the one above, we are providing the local docker-compose.yml file and copying over to the AWS server. 
   # using the same GameKeyPair as above.
   provisioner "file" {
@@ -70,12 +73,25 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
+
+  # Copy docker_compose_up to gameserver
+    provisioner "file" {
+    source      = "docker_compose_up.sh"
+    destination = "/home/ubuntu/docker_compose_up.sh"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("~/.aws/GameKeyPair.pem")}"
+    }
+  }
+
   # This is used to run commands on the instance we just created.
   # Terraform does this by SSHing into the instance and then executing the commands.
   # Since it can take time for the SSH agent on machine to start up we let Terraform
   # handle the retry logic, it will try to connect to the agent until it is available
   # that way we know the instance is available through SSH after Terraform finishes.
-  
+
   # This tells the remote computer that it should run this command to give the computer access to run the initialize game script. 
   # (same to how we have to do this locally)
   provisioner "remote-exec" {
