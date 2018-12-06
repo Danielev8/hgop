@@ -11,8 +11,8 @@ node {
         sh "npm install --prefix game-api"
         sh "npm run eslint --prefix game-api"
     }
-    stage("Test") {
+    /*stage("Test") {
         sh "npm run test:unit --prefix game-api"
-    }
+    }*/
     build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 }
