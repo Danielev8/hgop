@@ -8,6 +8,6 @@ COPY database.js database.js
 
 COPY app.js app.js
 # Installs package dependencies into docker
-RUN npm install
+RUN npm install --production
 # Runs the nodejs app
 CMD node app.js
