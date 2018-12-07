@@ -8,15 +8,15 @@ node {
     stage("Install") {
         sh "npm install --prefix game-api"
     }
-    stage("Build") {
-        sh "./scripts/docker_build.sh ${git.GIT_COMMIT}"
-        sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
-    }
-    stage("ESLint check") {
+    stage("ESLint Tests") {
         sh "npm run eslint --prefix game-api"
     }
     stage("Unit Testing") {
         sh "npm run test:unit --prefix game-api"
+    }
+    stage("Build") {
+        sh "./scripts/docker_build.sh ${git.GIT_COMMIT}"
+        sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
     }
     build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 }
