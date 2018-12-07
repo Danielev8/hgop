@@ -40,13 +40,6 @@ describe('Test game initiation', () => {
 		let game = lucky21Constructor(context);
 		expect(game.state.cards.length).toEqual(2);
 	});
-
-	test('cards should be shuffled at the beginning', () => {
-		// Set dependencies
-		dependencies = resetDependencies();
-		let game = lucky21Constructor(context);
-		expect(game.state.cards).not.toEqual(dependencies.deck);
-	});
 });
 
 describe('Testing isGameOver', () => {
