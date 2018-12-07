@@ -43,166 +43,109 @@ describe('Test game initiation', () => {
 });
 
 describe('Testing isGameOver', () => {
-	test('isGameOver should return true', () => {
+	test('Guessed under and the total is over 21 and isGameOver should return true', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '10D', '09S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
+		// Arrange
+		game.state.cards = ['05C', '10D', '09S'];
 		game.guess21OrUnder(game);
 		// Assert
 		expect(game.isGameOver(game)).toEqual(true);
 	});
-	test('isGameOver should return true', () => {
+	test('Guessed over 21 and isGameOver should return true', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '10H',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['01D', '09S', '10H'];
+		game.state.card = '05C';		// Assert
+		expect(game.isGameOver(game)).toEqual(true);
+	});
+
+	test('Guessed 21 or under and total is equal to 21 and isGameOver should return true', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['05C', '10D', '06S'];
 		// Assert
 		expect(game.isGameOver(game)).toEqual(true);
 	});
 
-	test('isGameOver should return true', () => {
+	test('Guessed 21 or under and the total is under 21 and isGameOver should return false', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '10D', '06S',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		// Assert
-		expect(game.isGameOver(game)).toEqual(true);
-	});
-
-	test('isGameOver should return false', () => {
-		// Set dependencies
-		dependencies = resetDependencies();
 		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S',
-		];
-		// Inject our dependencies
-		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		game.state.cards = ['01D', '09S', '05C'];
 		// Assert
 		expect(game.isGameOver(game)).toBe(false);
 	});
 });
 
 describe('Testing playerWon', () => {
-	test('playerWon should return true', () => {
+	test('Guessed 21 or under twice and total is = 21 and playerWon should return true', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '06H',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-
+		// Arrange
+		game.state.cards = ['01D', '09S', '06H', '05C'];
 		// Assert
 		expect(game.playerWon(game)).toEqual(true);
 	});
 
-	test('playerWon should return true', () => {
+	test('Guessed 21 or under and then over 21 and total is > 21 and playerWon should return true', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
 		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '10H',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
-
+		// Arrange
+		game.state.cards = ['01D', '09S', '10H'];
+		game.state.card = '05C';
 		// Assert
 		expect(game.playerWon(game)).toEqual(true);
 	});
 
-	test('playerWon should return true', () => {
+	test('Guessed 21 or under and then over 21 and the total was = 21 and playerWon should return false', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '06H',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-
-		// Assert
-		expect(game.playerWon(game)).toEqual(true);
-	});
-
-	test('playerWon should return false', () => {
-		// Set dependencies
-		dependencies = resetDependencies();
 		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '06H',
-		];
-		// Inject our dependencies
-		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		game.state.cards = ['01D', '09S', '06H'];
+		game.state.card = '05C';
 		// Assert
 		expect(game.playerWon(game)).toEqual(false);
 	});
 
-	test('playerWon should return false', () => {
+	test('Guessed under 21 and then over 21 and the total was < 21 and playerWon should return false', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05C', '01D', '09S', '03H',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['01D', '09S', '03H'];
+		game.state.card = '05C';
 		// Assert
 		expect(game.playerWon(game)).toEqual(false);
 	});
 });
 
 describe('Testing getCardsValue', () => {
-	test('getCardsValue should return 25', () => {
+	test('The card value after two guesses should return 25', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05H', '07D', '13S', '03C'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['05H', '07D', '13S', '03C'];
 		// Assert
 		expect(game.getCardsValue(game)).toEqual(25);
 	});
@@ -210,128 +153,116 @@ describe('Testing getCardsValue', () => {
 	test('getCardsValue should return 15', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01S', '04D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['01S', '04D'];
 		// Assert
 		expect(game.getCardsValue(game)).toEqual(15);
 	});
 
-	test('getCardsValue should return 13', () => {
+	test('getCardsValue with card defined should return 18', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01C', '01D', '01S', '01H'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
-		// Assert
-		expect(game.getCardsValue(game)).toEqual(13);
-	});
-
-	test('getCardsValue should return 28', () => {
-		// Set dependencies
-		dependencies = resetDependencies();
 		// Arrange
-		dependencies.deck = () => [
-			'01C', '08D', '09S', '13S'
-		];
-		// Inject our dependencies
-		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-
+		game.state.cards = ['01C', '08D', '09S'];
+		game.state.card = '13S';
 		// Assert
-		expect(game.getCardsValue(game)).toEqual(28);
+		expect(game.getCardsValue(game)).toEqual(18);
 	});
 
 	test('getCardsValue should return 23', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'08S', '05C', '01D', '02H', '07S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-
+		// Arrange
+		game.state.cards = ['08S', '05C', '01D', '02H', '07S'];
 		// Assert
 		expect(game.getCardsValue(game)).toEqual(23);
 	});
 
-	test('getCardsValue should return 18', () => {
+	test('getCardsValue with card defined should return 18', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05H', '04D', '01S', '03C'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['04D', '01S', '03C'];
+		game.state.card = '05H';
 		// Assert
 		expect(game.getCardsValue(game)).toEqual(18);
 	});
 
-	test('getCardsValue should return 13', () => {
+	test('getCardsValue of three aces should return 13', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01D', '01S', '01C'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['01D', '01S', '01C'];
 		// Assert
 		expect(game.getCardsValue(game)).toEqual(13);
+	});
+
+	test('getCardsValue of four aces should return 14', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['01D', '01S', '01H', '01C'];
+		// Assert
+		expect(game.getCardsValue(game)).toEqual(14);
+	});
+
+	test('getCardsValue of all royal cards should return 30', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['11S', '12C', '13H'];
+		// Assert
+		expect(game.getCardsValue(game)).toEqual(30);
 	});
 });
 
 describe('Testing getCardValue', () => {
-	test('getCardValue should return 1', () => {
+	test('getCardValue where cards value is > 11 should return 1', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01H', '03S', '04C', '04D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['03S', '04C', '05D'];
+		game.state.card = '01H';
 		// Assert
 		expect(game.getCardValue(game)).toEqual(1);
 	});
 
-	test('getCardValue should return 11', () => {
+	test('getCardValue where cards value is = 11 should return 1', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01H', '03S', '04C', '03D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['03S', '04C', '04D'];
+		game.state.card = '01H';
+		// Assert
+		expect(game.getCardValue(game)).toEqual(1);
+	});
+
+	test('getCardValue where cards value is < 11 should return 11', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['03S', '04C', '03D'];
+		game.state.card = '01H';
 		// Assert
 		expect(game.getCardValue(game)).toEqual(11);
 	});
@@ -339,15 +270,10 @@ describe('Testing getCardValue', () => {
 	test('getCardValue should return undefined', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'03S', '04C', '04D', '01H'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['03S', '04C', '04D', '01H'];
 		// Assert
 		expect(game.getCardValue(game)).toEqual(undefined);
 	});
@@ -355,12 +281,10 @@ describe('Testing getCardValue', () => {
 	test('getCardValue should return undefined', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'03S', '04C', '04D', '01H'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['03S', '04C', '04D', '01H'];
 		// Assert
 		expect(game.getCardValue(game)).toEqual(undefined);
 	});
@@ -368,15 +292,11 @@ describe('Testing getCardValue', () => {
 	test('getCardValue should return 7', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'07H', '03S', '04C', '04D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['03S', '04C', '04D'];
+		game.state.card = '07H';
 		// Assert
 		expect(game.getCardValue(game)).toEqual(7);
 	});
@@ -386,14 +306,10 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 16', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'12S', '03C', '03D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['12S', '03C', '03D'];
 		// Assert
 		expect(game.getTotal(game)).toEqual(16);
 	});
@@ -401,14 +317,10 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 21', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05S', '05C', '01D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['05S', '05C', '01D'];
 		// Assert
 		expect(game.getTotal(game)).toEqual(21);
 	});
@@ -416,14 +328,10 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 25', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'10S', '13C', '05D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['10S', '13C', '05D'];
 		// Assert
 		expect(game.getTotal(game)).toEqual(25);
 	});
@@ -431,14 +339,11 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 16', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'12S', '03C', '03D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['03C', '03D'];
+		game.state.card = '12S';
 		// Assert
 		expect(game.getTotal(game)).toEqual(16);
 	});
@@ -446,14 +351,11 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 21', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05S', '05C', '01D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['05C', '01D'];
+		game.state.card = '05S';
 		// Assert
 		expect(game.getTotal(game)).toEqual(21);
 	});
@@ -461,15 +363,11 @@ describe('Testing getTotal', () => {
 	test('getTotal should return 27', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'10S', '05C', '02D', '13D'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['05C', '02D', '13D'];
+		game.state.card = '10S';
 		// Assert
 		expect(game.getTotal(game)).toEqual(27);
 	});
@@ -479,44 +377,32 @@ describe('Testing getCards', () => {
 	test('getCards should return ["13S", "07D", "05H"]', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'05H', '07D', '13S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['13S', '07D', '05H'];
 		// Assert
-		expect(game.getCards(game)).toEqual(["13S", "07D", "05H"]);
+		expect(game.getCards(game)).toEqual(['13S', '07D', '05H']);
 	});
 
 	test('getCards should return ["04D", "01S"]', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01S', '04D',
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-
+		// Arrange
+		game.state.cards = ['04D', '01S'];
 		// Assert
-		expect(game.getCards(game)).toEqual(["04D", "01S"]);
+		expect(game.getCards(game)).toEqual(['04D', '01S']);
 	});
 
 	test('getCards should return ["13S", "06S", "08D", "01C"]', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'01C', '08D', '06S', '13S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['13S', '06S', '08D','01C'];
 		// Assert
 		expect(game.getCards(game)).toEqual(["13S", "06S", "08D", "01C"]);
 	});
@@ -524,16 +410,10 @@ describe('Testing getCards', () => {
 	test('getCards should return ["07S", "01H", "10D", "05C", "08S"]', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'08S', '05C', '10D', '01H', '07S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['07S', '01H', '10D', '05C', '08S'];
 		// Assert
 		expect(game.getCards(game)).toEqual(["07S", "01H", "10D", "05C", "08S"]);
 	});
@@ -543,14 +423,11 @@ describe('Testing getCard', () => {
 	test('getCard should return "08S"', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'08S', '05C', '10H'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guessOver21(game);
+		// Arrange
+		game.state.cards = ['05C', '10H'];
+		game.state.card = '08S';
 		// Assert
 		expect(game.getCard(game)).toEqual("08S");
 	});
@@ -558,14 +435,10 @@ describe('Testing getCard', () => {
 	test('getCard should return undefined', () => {
 		// Set dependencies
 		dependencies = resetDependencies();
-		// Arrange
-		dependencies.deck = () => [
-			'08S', '05C', '03S'
-		];
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
-		// Act
-		game.guess21OrUnder(game);
+		// Arrange
+		game.state.cards = ['08S', '05C', '03S'];
 		// Assert
 		expect(game.getCard(game)).toEqual(undefined);
 	});
