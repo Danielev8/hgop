@@ -402,7 +402,7 @@ describe('Testing getCards', () => {
 		// Inject our dependencies
 		let game = lucky21Constructor(context);
 		// Arrange
-		game.state.cards = ['13S', '06S', '08D','01C'];
+		game.state.cards = ['13S', '06S', '08D', '01C'];
 		// Assert
 		expect(game.getCards(game)).toEqual(["13S", "06S", "08D", "01C"]);
 	});
