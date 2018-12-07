@@ -3,10 +3,7 @@ services:
   my_item_repository:
     image: danielev22/hgop:${GIT_COMMIT}
     ports:
-      - target: 3000
-        published: 3000
-        protocol: tcp
-        mode: host
+    - "3000:3000/tcp"
     depends_on:
     - my_postgres_container
     environment:
