@@ -11,6 +11,7 @@ services:
       POSTGRES_USER: 'my_postgres_user'
       POSTGRES_PASSWORD: 'my_postgres_password'
       PORT: 3000
+      GIT_COMMIT: ${GIT_COMMIT}
   my_postgres_container:
     image: postgres
     environment:
