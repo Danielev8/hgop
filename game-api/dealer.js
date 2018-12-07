@@ -1,5 +1,5 @@
 module.exports = (context) => {
-	const random = context('random').randomInt;
+	const random = context('random')().randomInt;
 	return {
 		shuffle: (deck) => {
 			for (let i = 0; i < deck.length - 1; i++) {
