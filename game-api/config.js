@@ -1,5 +1,5 @@
 module.exports = function (context) {
-	console.log(String(process.env));
+	console.log(JSON.stringify(process.env));
 	return {
 		// Postgres
 		pgHost: process.env.POSTGRES_HOST || 'default_host',
