@@ -462,6 +462,41 @@ describe('Testing guess21OrUnder', () => {
 	});
 });
 
+describe('Testing getState', () => {
+	test('getState should return cards as ["05C", "01D"], card as undefined and isGameOver as false', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['05C', '01D'];
+		const expectedResult = {
+			cards: ['05C', '01D'],
+			card: undefined,
+			finished: false,
+		};
+		// Assert
+		expect(game.getState(game)).toEqual(expectedResult);
+	});
+
+	test('getState should return cards as ["05C", "01D"], card as "05D" and isGameOver as true', () => {
+		// Set dependencies
+		dependencies = resetDependencies();
+		// Inject our dependencies
+		let game = lucky21Constructor(context);
+		// Arrange
+		game.state.cards = ['05C', '01D'];
+		game.state.card = "05D";
+		const expectedResult = {
+			cards: ['05C', '01D'],
+			card: "05D",
+			finished: true,
+		};
+		// Assert
+		expect(game.getState(game)).toEqual(expectedResult);
+	});
+});
+
 describe('Testing guessOver21', () => {
 	test('guessOver21 should draw next card and set player card as that card', () => {
 		// Set dependencies
