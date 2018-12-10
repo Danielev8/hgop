@@ -10,6 +10,7 @@ services:
       POSTGRES_DB: 'pg_database'
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
+      POSTGRES_HOSTNAME: 'postgres'
       PORT: 3000
   my_postgres_container:
     image: postgres
@@ -17,3 +18,4 @@ services:
       POSTGRES_DB: 'pg_database'
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
+      POSTGRES_HOSTNAME: 'postgres'
