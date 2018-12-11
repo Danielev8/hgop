@@ -13,24 +13,24 @@ module.exports = function (context) {
 	}
 
 	let client = getClient();
-
-	setTimeout(() =>
-		client.connect((err) => {
-			if (err) {
-				console.log('failed to connect to postgres!');
-			} else {
-				console.log('successfully connected to postgres!');
-				client.query('CREATE TABLE IF NOT EXISTS GameResults (ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertedDate TIMESTAMP NOT NULL);', (err) => {
-					if (err) {
-						console.log('error creating game result table!');
-					} else {
-						console.log('successfully created game result table!');
-					}
-					client.end();
-				});
-			}
-		}), 5000);
-
+	/*
+		setTimeout(() =>
+			client.connect((err) => {
+				if (err) {
+					console.log('failed to connect to postgres!');
+				} else {
+					console.log('successfully connected to postgres!');
+					client.query('CREATE TABLE IF NOT EXISTS GameResults (ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertedDate TIMESTAMP NOT NULL);', (err) => {
+						if (err) {
+							console.log('error creating game result table!');
+						} else {
+							console.log('successfully created game result table!');
+						}
+						client.end();
+					});
+				}
+			}), 5000);
+	*/
 	// Function returns total count and takes in "WHERE X = Y" as parameters
 	const sendQuery = (onSuccess, onError, query) => {
 		let client = getClient();
