@@ -55,7 +55,7 @@ module.exports = function (context) {
 
 		insertResult: (won, score, total, onSuccess, onError) => {
 			const query = {
-				text: 'INSERT INTO "GameResult" ("Won", "Score", "Total", "InsertedDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+				text: 'INSERT INTO "GameResult" ("Won", "Score", "Total", "InsertDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
 				values: [won, score, total],
 			};
 			return sendQuery(onSuccess, onError, query);
