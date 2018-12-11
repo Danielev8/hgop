@@ -9,7 +9,8 @@ module.exports = function (context) {
 	let app = express();
 
 	app.use((req, res, next) => {
-		res.header('Acecess-Control-Allow-Origin');
+		res.header('Access-Control-Allow-Origin', "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		next();
 	});
 
