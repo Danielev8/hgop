@@ -55,7 +55,7 @@ module.exports = function (context) {
 
 		insertResult: (won, score, total, onSuccess, onError) => {
 			const query = {
-				text: 'INSERT INTO GameResult (Won, Score, Total, InsertedDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+				text: 'INSERT INTO "GameResult" ("Won", "Score", "Total", "InsertedDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
 				values: [won, score, total],
 			};
 			return sendQuery(onSuccess, onError, query);
@@ -64,21 +64,21 @@ module.exports = function (context) {
 		// Should call onSuccess with integer.
 		getTotalNumberOfGames: (onSuccess, onError) => {
 			const query = {
-				text: 'SELECT COUNT(*) FROM GameResult;'
+				text: 'SELECT COUNT(*) FROM "GameResult";'
 			};
 			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOfWins: (onSuccess, onError) => {
 			const query = {
-				text: 'SELECT COUNT(*) FROM GameResult r WHERE r.Won = TRUE;'
+				text: 'SELECT COUNT(*) FROM "GameResult" r WHERE r.Won = TRUE;'
 			};
 			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOf21: (onSuccess, onError) => {
 			const query = {
-				text: 'SELECT COUNT(*) FROM GameResult r WHERE r.Total = 21'
+				text: 'SELECT COUNT(*) FROM "GameResult" r WHERE r.Total = 21'
 			};
 			return sendQuery(onSuccess, onError, query);
 		},
