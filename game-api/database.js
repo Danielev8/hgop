@@ -32,16 +32,13 @@ module.exports = function (context) {
 		}), 5000);
 
 	// Function returns total count and takes in "WHERE X = Y" as parameters
-	const whereQueryHelper = (onSuccess, onError, whereQuery) => {
+	const sendQuery = (onSuccess, onError, query) => {
 		let client = getClient();
 		client.connect((err) => {
 			if (err) {
 				onError(err);
 				client.end();
 			} else {
-				const query = {
-					text: `SELECT COUNT(*) FROM GameResults r ${whereQuery}`,
-				};
 				client.query(query, (err, res) => {
 					if (err) {
 						onError();
@@ -56,41 +53,35 @@ module.exports = function (context) {
 	};
 
 	return {
+
 		insertResult: (won, score, total, onSuccess, onError) => {
-			let client = getClient();
-			client.connect((err) => {
-				if (err) {
-					onError(err);
-					client.end();
-				} else {
-					const query = {
-						text: 'INSERT INTO GameResults (Won, Score, Total, InsertedDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
-						values: [won, score, total],
-					};
-					client.query(query, (err) => {
-						if (err) {
-							onError();
-						} else {
-							onSuccess();
-						}
-						client.end();
-					});
-				}
-			});
-			return;
+			const query = {
+				text: 'INSERT INTO GameResults (Won, Score, Total, InsertedDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+				values: [won, score, total],
+			};
+			return sendQuery(onSuccess, onError, query);
 		},
 
 		// Should call onSuccess with integer.
 		getTotalNumberOfGames: (onSuccess, onError) => {
-			return whereQueryHelper(onSuccess, onError, ";");
+			const query = {
+				text: 'SELECT COUNT(*) FROM GameResults;'
+			}
+			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOfWins: (onSuccess, onError) => {
-			return whereQueryHelper(onSuccess, onError, "WHERE r.Won = TRUE;");
+			const query = {
+				text: 'SELECT COUNT(*) FROM GameResults r WHERE r.Won = TRUE;'
+			}
+			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOf21: (onSuccess, onError) => {
-			return whereQueryHelper(onSuccess, onError, "WHERE r.total = 21;");
+			const query = {
+				text: 'SELECT COUNT(*) FROM GameResults r WHERE r.Total = 21'
+			}
+			return sendQuery(onSuccess, onError, query);
 		},
 	};
 };
