@@ -9,11 +9,13 @@
     "test:unit": "jest --coverage --testRegex .*.unit-test.js",
     "test:api": "jest --testRegex .*.api-test.js",
     "test:capacity": "jest --testRegex .*.capacity-test.js",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js ./"
+    "eslint": "node ./node_modules/eslint/bin/eslint.js ./",
+    "migratedb:pg": "db-migrate --verbose --env pg --config ./database.json --migrations-dir ./migrations up"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "db-migrate": "^0.11.4",
     "express": "^4.16.2",
     "pg": "^7.6.1"
   },
