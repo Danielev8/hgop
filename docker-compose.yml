@@ -18,3 +18,5 @@ services:
       POSTGRES_DB: 'pg_database'
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
+  game-ui:
+    image: danielev22/hgop:lucky21ui
