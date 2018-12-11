@@ -472,8 +472,12 @@ describe('Testing getState', () => {
 		game.state.cards = ['05C', '01D'];
 		const expectedResult = {
 			cards: ['05C', '01D'],
+			cardsValue: 16,
 			card: undefined,
-			finished: false,
+			cardValue: undefined,
+			total: 16,
+			gameOver: false,
+			playerWon: false,
 		};
 		// Assert
 		expect(game.getState(game)).toEqual(expectedResult);
@@ -489,8 +493,12 @@ describe('Testing getState', () => {
 		game.state.card = "05D";
 		const expectedResult = {
 			cards: ['05C', '01D'],
+			cardsValue: 16,
 			card: "05D",
-			finished: true,
+			cardValue: 5,
+			total: 21,
+			gameOver: true,
+			playerWon: false,
 		};
 		// Assert
 		expect(game.getState(game)).toEqual(expectedResult);
