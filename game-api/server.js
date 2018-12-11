@@ -48,9 +48,20 @@ module.exports = function (context) {
 		if (game && game.isGameOver(game) == false) {
 			res.statusCode = 409;
 			res.send('There is already a game in progress');
+		} else if (game && game.isGameOver(game) == true) {
+			res.statusCode = 400;
+			res.send(`Game started ${game.getState()}`);
+			const won = game.playerWon(game);
+			const score = game.getCardsValue(game);
+			const total = game.getTotal(game);
+			database.insertResult(won, score, total, () => {
+				console.log('Game result inserted to database');
+			}, (err) => {
+				console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+			});
 		} else {
 			game = lucky21Constructor(context);
-			const msg = 'Game started';
+			const msg = `Game started ${game.getState()}`;
 			res.statusCode = 201;
 			res.send(msg);
 		}
