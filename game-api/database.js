@@ -43,7 +43,7 @@ module.exports = function (context) {
 					if (err) {
 						onError();
 					} else {
-						onSuccess(res.rows[0].count);
+						return res.rows[0] ? onSuccess(res.rows[0].count) : onSuccess();
 					}
 					client.end();
 				});
