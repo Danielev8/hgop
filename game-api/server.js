@@ -8,6 +8,11 @@ module.exports = function (context) {
 
 	let app = express();
 
+	app.use((req, res, next) => {
+		res.header('Acecess-Control-Allow-Origin');
+		next();
+	});
+
 	app.get('/status', (req, res) => {
 		res.statusCode = 200;
 		res.send('The API is running!\n');
