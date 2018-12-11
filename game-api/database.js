@@ -43,7 +43,7 @@ module.exports = function (context) {
 					if (err) {
 						onError();
 					} else {
-						onSuccess(res.rows[0].count);
+						return res.rows[0] ? onSuccess(res.rows[0].count) : onSuccess();
 					}
 					client.end();
 				});
@@ -66,21 +66,21 @@ module.exports = function (context) {
 		getTotalNumberOfGames: (onSuccess, onError) => {
 			const query = {
 				text: 'SELECT COUNT(*) FROM GameResults;'
-			}
+			};
 			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOfWins: (onSuccess, onError) => {
 			const query = {
 				text: 'SELECT COUNT(*) FROM GameResults r WHERE r.Won = TRUE;'
-			}
+			};
 			return sendQuery(onSuccess, onError, query);
 		},
 		// Should call onSuccess with integer.
 		getTotalNumberOf21: (onSuccess, onError) => {
 			const query = {
 				text: 'SELECT COUNT(*) FROM GameResults r WHERE r.Total = 21'
-			}
+			};
 			return sendQuery(onSuccess, onError, query);
 		},
 	};
