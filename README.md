@@ -18,7 +18,7 @@ We are both running Ubuntu 18.04 LTS, we have not gotten the chance to test ever
 
 ## Week 2
 
-Jenkins instance: [http://ec2-18-234-243-128.compute-1.amazonaws.com:8080](http://ec2-18-234-243-128.compute-1.amazonaws.com:8080)
+Jenkins instance: [http://ec2-54-159-34-3.compute-1.amazonaws.com:8080/](http://ec2-54-159-34-3.compute-1.amazonaws.com:8080/) (One of us switched to a new computer and the KeyPair did not work properly so we had to work around it and get a new domain)
 
 Our game-api instance IP is listed in the deployment log as requested. The API calls are as follows:
 
