@@ -1,7 +1,7 @@
 {
 	"pg": {
 		"driver": "pg",
-		"host": "my_postgres_container",
+		"host": "game-database",
 		"database": "pg_database",
 		"user": "coreduo",
 		"password": "intel2",
