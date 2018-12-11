@@ -16,7 +16,7 @@ module.exports = function (context) {
 	let game = undefined;
 
 	// Starts a new game.
-	app.post('/stats', (req, res) => {
+	app.get('/stats', (req, res) => {
 		database.getTotalNumberOfGames((totalNumberOfGames) => {
 			database.getTotalNumberOfWins((totalNumberOfWins) => {
 				database.getTotalNumberOf21((totalNumberOf21) => {
@@ -50,9 +50,9 @@ module.exports = function (context) {
 			res.send('There is already a game in progress');
 		} else {
 			game = lucky21Constructor(context);
+			res.statusCode = 201;
+			const msg = `Game started ${JSON.stringify(game.getState(game))}`;
 			if (game && game.isGameOver(game) == true) {
-				res.statusCode = 201;
-				res.send(`Game started ${game.getState()}`);
 				const won = game.playerWon(game);
 				const score = game.getCardsValue(game);
 				const total = game.getTotal(game);
@@ -62,10 +62,6 @@ module.exports = function (context) {
 					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
 				});
 			}
-		} else {
-			game = lucky21Constructor(context);
-			const msg = `Game started ${game.getState()}`;
-			res.statusCode = 201;
 			res.send(msg);
 		}
 	});
