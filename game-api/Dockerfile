@@ -8,4 +8,4 @@ COPY . .
 # Installs package dependencies into docker
 RUN npm install --production
 # Runs the nodejs app
-CMD node app.js
+CMD sleep 5 && npm run migratedb:pg && node app.js
