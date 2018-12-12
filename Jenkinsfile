@@ -28,8 +28,8 @@ node {
         sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
     }
     stage("Build Client") {
-        sh "./scripts/docker_build_client.sh ${git.GIT_COMMIT}"
-        sh "./scripts/docker_push_client.sh ${git.GIT_COMMIT}"
+        sh "./scripts/docker_build_ui.sh ${git.GIT_COMMIT}"
+        sh "./scripts/docker_push_ui.sh ${git.GIT_COMMIT}"
     }
     build job: 'API-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
     build job: 'Capacity-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
