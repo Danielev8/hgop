@@ -19,10 +19,11 @@ services:
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
   game-ui:
-    image: danielev22/hgop:ui
+    image: danielev22/hgop:ui2
     ports:
     - "4000:4000"
     environment:
-      API_URL: ${API_URL}
+      API_URL: danielev22/hgop:ui${GIT_COMMIT}
+      PORT: 4000
     depends_on:
     - game-api
