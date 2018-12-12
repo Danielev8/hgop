@@ -1,20 +1,29 @@
 version: '3'
 services:
-  my_item_repository:
-    image: danielev22/hgop:${GIT_COMMIT}
+  game-api:
+    image: danielev22/hgop:{GIT_COMMIT}
     ports:
     - "3000:3000/tcp"
     depends_on:
-    - my_postgres_container
+    - game-database
     environment:
       POSTGRES_DB: 'pg_database'
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
-      POSTGRES_HOST: 'my_postgres_container'
+      POSTGRES_HOST: 'game-database'
       PORT: 3000
-  my_postgres_container:
+  game-database:
     image: postgres
     environment:
       POSTGRES_DB: 'pg_database'
       POSTGRES_USER: 'coreduo'
       POSTGRES_PASSWORD: 'intel2'
+  game-ui:
+    image: danielev22/hgop:ui
+    ports:
+    - "4000:4000"
+    environment:
+      PORT: 4000
+      API_URL: ${API_URL}
+    depends_on:
+    - game-api

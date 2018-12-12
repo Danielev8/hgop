@@ -8,6 +8,12 @@ module.exports = function (context) {
 
 	let app = express();
 
+	app.use((req, res, next) => {
+		res.header('Access-Control-Allow-Origin', "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		next();
+	});
+
 	app.get('/status', (req, res) => {
 		res.statusCode = 200;
 		res.send('The API is running!\n');
@@ -16,7 +22,7 @@ module.exports = function (context) {
 	let game = undefined;
 
 	// Starts a new game.
-	app.post('/stats', (req, res) => {
+	app.get('/stats', (req, res) => {
 		database.getTotalNumberOfGames((totalNumberOfGames) => {
 			database.getTotalNumberOfWins((totalNumberOfWins) => {
 				database.getTotalNumberOf21((totalNumberOf21) => {
@@ -50,8 +56,18 @@ module.exports = function (context) {
 			res.send('There is already a game in progress');
 		} else {
 			game = lucky21Constructor(context);
-			const msg = 'Game started';
 			res.statusCode = 201;
+			const msg = `Game started ${JSON.stringify(game.getState(game))}`;
+			if (game && game.isGameOver(game) == true) {
+				const won = game.playerWon(game);
+				const score = game.getCardsValue(game);
+				const total = game.getTotal(game);
+				database.insertResult(won, score, total, () => {
+					console.log('Game result inserted to database');
+				}, (err) => {
+					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+				});
+			}
 			res.send(msg);
 		}
 	});

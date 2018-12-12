@@ -1,10 +1,10 @@
 {
 	"pg": {
 		"driver": "pg",
-		"host": "my_database_container",
-		"database": "game_database",
-		"user": "my_user",
-		"password": "my_password",
+		"host": "game-database",
+		"database": "pg_database",
+		"user": "coreduo",
+		"password": "intel2",
 		"schema": "postgres",
 		"port": 5432,
 		"max": 10,
