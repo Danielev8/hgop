@@ -6,15 +6,7 @@ module.exports = function (context) {
 	const config = configConstructor(context);
 	const lucky21Constructor = context("lucky21");
 	const StatsD = require('hot-shots');
-	const datadogClient = new StatsD({
-		host: 'datadog_container',
-		errorHandler: (err) => {
-			console.log(JSON.stringify({
-				log_level: 'error',
-				error: error
-			}));
-		}
-	});
+	const datadogClient = new StatsD({ host: 'datadog_container'});
 
 	let app = express();
 
