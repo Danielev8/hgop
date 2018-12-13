@@ -5,6 +5,13 @@ module.exports = function (context) {
 	const configConstructor = context('config');
 	const config = configConstructor(context);
 	const lucky21Constructor = context("lucky21");
+	const StatsD = require('hot-shots');
+	const datadogClient = new StatsD({
+		host: 'datadog_container',
+		errorHandler: (err) => {
+			console.log(JSON.stringify({ log_level: 'error', error: error }));
+		}
+	});
 
 	let app = express();
 
@@ -67,6 +74,7 @@ module.exports = function (context) {
 					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
 				});
 			}
+			datadogClient.increment('games.started');
 			res.send(msg);
 		}
 	});

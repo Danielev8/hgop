@@ -27,3 +27,13 @@ services:
       PORT: 4000
     depends_on:
     - game-api
+  datadog_container:
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=1276353db216c9b47f502146bfd82c97
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_TAGS=env:${ENVIRONMENT}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
