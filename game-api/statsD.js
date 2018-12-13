@@ -1,6 +1,6 @@
 module.exports = (context) => {
-	const statsD = context('hotshots');
-	return new statsD({
+	const StatsD = context('hotshots');
+	return new StatsD({
 		host: 'datadog_container'
 	});
 };
