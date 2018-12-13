@@ -5,9 +5,7 @@ module.exports = function (context) {
 	const configConstructor = context('config');
 	const config = configConstructor(context);
 	const lucky21Constructor = context("lucky21");
-	const StatsD = require('hot-shots');
-	const datadogClient = new StatsD({ host: 'datadog_container'});
-
+	const StatsD = context('statsD');
 	let app = express();
 
 	app.use((req, res, next) => {
@@ -65,14 +63,14 @@ module.exports = function (context) {
 				const total = game.getTotal(game);
 				database.insertResult(won, score, total, () => {
 					console.log('Game result inserted to database');
-					datadogClient.increment('games.completed');
-					datadogClient.increment('games.gameOf21');
+					statsD.increment('games.completed');
+					statsD.increment('games.gameOf21');
 				}, (err) => {
 					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
-					datadogClient.increment('games.failedToInsertToDatabase');
+					statsD.increment('games.failedToInsertToDatabase');
 				});
 			}
-			datadogClient.increment('games.started');
+			statsD.increment('games.started');
 			res.send(msg);
 		}
 	});
@@ -104,18 +102,18 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
-						datadogClient.increment('games.completed');
+						statsD.increment('games.completed');
 						if (total === 21) {
-							datadogClient.increment('games.gameOf21');
+							statsD.increment('games.gameOf21');
 						}
 						if (won === true) {
-							datadogClient.increment('games.won');
+							statsD.increment('games.won');
 						} else {
-							datadogClient.increment('games.lost');
+							statsD.increment('games.lost');
 						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
-						datadogClient.increment('games.failedToInsertToDatabase');
+						statsD.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
@@ -143,19 +141,19 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
-						datadogClient.increment('games.completed');
+						statsD.increment('games.completed');
 						if (total === 21) {
-							datadogClient.increment('games.gameOf21');
+							statsD.increment('games.gameOf21');
 						}
 						if (won === true) {
-							datadogClient.increment('games.won');
-							datadogClient.increment('games.wonOver21');
+							statsD.increment('games.won');
+							statsD.increment('games.wonOver21');
 						} else {
-							datadogClient.increment('games.lost');
+							statsD.increment('games.lost');
 						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
-						datadogClient.increment('games.failedToInsertToDatabase');
+						statsD.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
