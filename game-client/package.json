@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/hgop/lucky-21-frontend#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.10.3"
+    "parcel-bundler": "1.10.3"
   },
   "dependencies": {
     "axios": "0.18.0",

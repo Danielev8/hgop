@@ -1,3 +1,2 @@
 # ignore unnecessary files to be copied to image
 ./node_modules
-./*.unit-test.js
