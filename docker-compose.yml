@@ -12,7 +12,6 @@ services:
       POSTGRES_PASSWORD: 'intel2'
       POSTGRES_HOST: 'game-database'
       PORT: 3000
-      API_URL: ${API_URL}
   game-database:
     image: postgres
     environment:
