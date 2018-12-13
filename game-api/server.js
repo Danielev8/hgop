@@ -9,7 +9,10 @@ module.exports = function (context) {
 	const datadogClient = new StatsD({
 		host: 'datadog_container',
 		errorHandler: (err) => {
-			console.log(JSON.stringify({ log_level: 'error', error: error }));
+			console.log(JSON.stringify({
+				log_level: 'error',
+				error: error
+			}));
 		}
 	});
 
@@ -70,8 +73,11 @@ module.exports = function (context) {
 				const total = game.getTotal(game);
 				database.insertResult(won, score, total, () => {
 					console.log('Game result inserted to database');
+					datadogClient.increment('games.completed');
+					datadogClient.increment('games.gameOf21');
 				}, (err) => {
 					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+					datadogClient.increment('games.failedToInsertToDatabase');
 				});
 			}
 			datadogClient.increment('games.started');
@@ -106,8 +112,18 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
+						datadogClient.increment('games.completed');
+						if (total === 21) {
+							datadogClient.increment('games.gameOf21');
+						}
+						if (won === true) {
+							datadogClient.increment('games.won');
+						} else {
+							datadogClient.increment('games.lost');
+						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+						datadogClient.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
@@ -135,8 +151,19 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
+						datadogClient.increment('games.completed');
+						if (total === 21) {
+							datadogClient.increment('games.gameOf21');
+						}
+						if (won === true) {
+							datadogClient.increment('games.won');
+							datadogClient.increment('games.wonOver21');
+						} else {
+							datadogClient.increment('games.lost');
+						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+						datadogClient.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
