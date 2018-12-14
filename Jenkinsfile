@@ -23,15 +23,21 @@ node {
          failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
         ])
     }
-    stage("Build API") {
+    stage("Build and Push API Docker") {
         sh "./scripts/docker_build_api.sh ${git.GIT_COMMIT}"
         sh "./scripts/docker_push_api.sh ${git.GIT_COMMIT}"
     }
-    stage("Build Client") {
+    stage("Build and Push Client Docker") {
         sh "./scripts/docker_build_client.sh ${git.GIT_COMMIT}"
         sh "./scripts/docker_push_client.sh ${git.GIT_COMMIT}"
     }
-    build job: 'API-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
-    build job: 'Capacity-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
-    build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+    stage("Testing API") {
+        build job: 'API-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+    }
+    stage("Testing Capacity") {
+        build job: 'Capacity-Test', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+    }
+    stage("Deploying to Production") {
+        build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+    }
 }

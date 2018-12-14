@@ -5,6 +5,8 @@ module.exports = function (context) {
 	const configConstructor = context('config');
 	const config = configConstructor(context);
 	const lucky21Constructor = context("lucky21");
+	const statsDConstructor = context('statsD');
+	const statsD = statsDConstructor(context);
 
 	let app = express();
 
@@ -63,10 +65,14 @@ module.exports = function (context) {
 				const total = game.getTotal(game);
 				database.insertResult(won, score, total, () => {
 					console.log('Game result inserted to database');
+					statsD.increment('games.completed');
+					statsD.increment('games.gameOf21');
 				}, (err) => {
 					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+					statsD.increment('games.failedToInsertToDatabase');
 				});
 			}
+			statsD.increment('games.started');
 			res.send(msg);
 		}
 	});
@@ -98,8 +104,18 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
+						statsD.increment('games.completed');
+						if (total === 21) {
+							statsD.increment('games.gameOf21');
+						}
+						if (won === true) {
+							statsD.increment('games.won');
+						} else {
+							statsD.increment('games.lost');
+						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+						statsD.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
@@ -127,8 +143,19 @@ module.exports = function (context) {
 					const total = game.getTotal(game);
 					database.insertResult(won, score, total, () => {
 						console.log('Game result inserted to database');
+						statsD.increment('games.completed');
+						if (total === 21) {
+							statsD.increment('games.gameOf21');
+						}
+						if (won === true) {
+							statsD.increment('games.won');
+							statsD.increment('games.wonOver21');
+						} else {
+							statsD.increment('games.lost');
+						}
 					}, (err) => {
 						console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+						statsD.increment('games.failedToInsertToDatabase');
 					});
 				}
 				res.statusCode = 201;
