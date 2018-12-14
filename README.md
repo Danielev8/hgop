@@ -58,6 +58,9 @@ There may be some extra files that have been created and are in use. ```.dockeri
 
 **API test:** [https://p.datadoghq.com/sb/ceb143800-469b137f318b7f1ede4402388c344740](https://p.datadoghq.com/sb/ceb143800-469b137f318b7f1ede4402388c344740)
 
+![DataDog Dashboard Screenshot](datadog.png)
+
+> API and Capacity Test dashboards are identical
 
 **Notes:**
 - Accidentally deleted the original pipeline in Jenkins hence the low number of builds.
